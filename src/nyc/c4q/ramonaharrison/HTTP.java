@@ -2,9 +2,9 @@ package nyc.c4q.ramonaharrison;
 
 /**
  * Access Code 2.1
- * Ramona Harrison
  * HTTP.java
  * Simplified API for HTTP, from AC_03-22 classwork.
+ *
  */
 
 import java.io.IOException;
