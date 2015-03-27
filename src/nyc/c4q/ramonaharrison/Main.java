@@ -4,17 +4,18 @@ package nyc.c4q.ramonaharrison;
  * Access Code 2.1
  * Ramona Harrison
  * Main.java
- * Takes a Wikipedia URL as input and follows the first link in each subsequent article until
- * the wikipedia.org/wiki/philosophy page is reached
- * 
+ *
+ * Takes a Wikipedia URL as input and follows the first link in each subsequent article,
+ * summing the link count until the wikipedia.org/wiki/philosophy page is reached
+ *
  */
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class Main {
 
@@ -83,7 +84,7 @@ public class Main {
     }
 
     public static boolean isFirstRealLink(String link) {
-        // filters out language and pronunciation links
+        // filters out most language and pronunciation and non-wiki links
         return (link.contains("wiki") && !link.contains("Greek") && !link.contains("Latin") && !link.contains("wiktionary"));
     }
 
