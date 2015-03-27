@@ -29,14 +29,13 @@ public class Main {
                 System.out.println("Please format input as a valid URL, for example: http://en.wikipedia.org/wiki/Nocturnality\n");
                 continue;
             }
-            System.out.println(seekPhilosophy(input));
+            System.out.println(findPhilosophy(input));
         }
     }
 
-    public static String seekPhilosophy(String article) throws IOException {
-        String firstLink = "";
+    public static String findPhilosophy(String article) throws IOException {
 
-        // breaks the loop and resets counter when philosophy article is reached
+        // resets counter and breaks the loop when philosophy article is reached
         if (article.equalsIgnoreCase("http://en.wikipedia.org/wiki/philosophy")) {
             int total = linkCounter;
             linkCounter = 0;
@@ -47,27 +46,32 @@ public class Main {
             linkCounter = 0;
             return "\nToo far away...\n";
 
+        // builds next string URL, prints article title to the console, increments counter
         } else {
-            URL url = HTTP.stringToURL(article);            // builds URL from string
-            Document doc = Jsoup.parse(url, 100000);        // parses wiki page, times out after 100 seconds
-            Elements links = doc.select("p > a");           // selects only links within <p> tags
-
-            // chooses the first suitable link
-            for (int i = 0; i < links.size(); i++) {
-                if (isFirstRealLink(links.get(i).toString())) {
-                    firstLink = links.get(i).toString();
-                    break;
-                }
-            }
-
-            // builds next string URL, prints article title to the console, increments counter
-            String nextArticle = "http://en.wikipedia.org" + firstLink.substring(9, firstLink.indexOf("\"", 10));
-            printTitle(nextArticle);
+            String nextLink = grabNextLink(article);
+            printTitle(nextLink);
             linkCounter++;
-
-            return seekPhilosophy(nextArticle);
+            return findPhilosophy(nextLink);
         }
 
+    }
+
+    public static String grabNextLink(String article) throws IOException {
+        String nextLink = "";
+
+        URL url = HTTP.stringToURL(article);            // builds URL from string
+        Document doc = Jsoup.parse(url, 100000);        // parses wiki page, times out after 100 seconds
+        Elements links = doc.select("p > a");           // selects only links within <p> tags
+
+        // chooses the first suitable link
+        for (int i = 0; i < links.size(); i++) {
+            if (isFirstRealLink(links.get(i).toString())) {
+                nextLink = links.get(i).toString();
+                break;
+            }
+        }
+
+        return "http://en.wikipedia.org" + nextLink.substring(9, nextLink.indexOf("\"", 10));
     }
 
     public static void printTitle(String article) {
