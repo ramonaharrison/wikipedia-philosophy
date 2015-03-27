@@ -4,8 +4,8 @@ package nyc.c4q.ramonaharrison;
  * Access Code 2.1
  * Ramona Harrison
  * Main.java
- * Takes a Wikipedia URL as input and returns how
- *
+ * Takes a Wikipedia URL as input and follows the first link in each subsequent article until
+ * the wikipedia.org/wiki/philosophy page is reached
  */
 
 import org.jsoup.Jsoup;
