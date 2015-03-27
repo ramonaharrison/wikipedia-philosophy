@@ -6,6 +6,7 @@ package nyc.c4q.ramonaharrison;
  * Main.java
  * Takes a Wikipedia URL as input and follows the first link in each subsequent article until
  * the wikipedia.org/wiki/philosophy page is reached
+ * 
  */
 
 import org.jsoup.Jsoup;
@@ -20,8 +21,8 @@ public class Main {
     static int linkCounter = 0;
 
     public static void main(String[] args) throws IOException {
-
         Scanner sc = new Scanner(System.in);
+
         while(true) {
             System.out.println("Enter a Wikipedia URL:");
             String input = sc.next();
@@ -35,7 +36,7 @@ public class Main {
 
     public static String findPhilosophy(String article) throws IOException {
 
-        // resets counter and breaks the loop when philosophy article is reached
+        // resets counter and breaks loop when philosophy article is reached
         if (article.equalsIgnoreCase("http://en.wikipedia.org/wiki/philosophy")) {
             int total = linkCounter;
             linkCounter = 0;
@@ -46,14 +47,13 @@ public class Main {
             linkCounter = 0;
             return "\nToo far away...\n";
 
-        // builds next string URL, prints article title to the console, increments counter
+        // builds next string URL, prints title to the console, increments counter
         } else {
             String nextLink = grabNextLink(article);
             printTitle(nextLink);
             linkCounter++;
             return findPhilosophy(nextLink);
         }
-
     }
 
     public static String grabNextLink(String article) throws IOException {
@@ -63,19 +63,17 @@ public class Main {
         Document doc = Jsoup.parse(url, 100000);        // parses wiki page, times out after 100 seconds
         Elements links = doc.select("p > a");           // selects only links within <p> tags
 
-        // chooses the first suitable link
-        for (int i = 0; i < links.size(); i++) {
+        for (int i = 0; i < links.size(); i++) {        // chooses the first suitable link
             if (isFirstRealLink(links.get(i).toString())) {
                 nextLink = links.get(i).toString();
                 break;
             }
         }
-
         return "http://en.wikipedia.org" + nextLink.substring(9, nextLink.indexOf("\"", 10));
     }
 
     public static void printTitle(String article) {
-        // formats article titles for printing to the console
+        // formats titles for printing to the console
         System.out.println("         ▼\n      " + article.substring(29).replace("_", " "));
     }
 
