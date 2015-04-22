@@ -5,6 +5,8 @@ A Java command line app which, given a valid Wikipedia.org article URL, will tel
 
 ~95% percent of English-language Wikipedia articles eventually link through to the Philosophy article. 
 
+![demo](https://ramonaharrison.github.io/images/wiki.gif)
+
 ## To run:
 From the command line:
 
