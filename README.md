@@ -7,12 +7,9 @@ A Java command line app which, given a valid Wikipedia.org article URL, will tel
 
 ![demo](https://ramonaharrison.github.io/images/wiki.gif)
 
-## To run:
-From the command line:
+## Usage
 
-```
-      
-```
+Clone, compile and run.
 At the prompt, input a valid Wikipedia URL (including the protocol http://), for example: http://en.wikipedia.org/wiki/Cat .
 
 Uses the jsoup library - [http://jsoup.org/](http://jsoup.org/).
